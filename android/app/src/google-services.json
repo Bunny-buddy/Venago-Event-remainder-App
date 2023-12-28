@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "101981676505",
+    "project_id": "submit-3ee0c",
+    "storage_bucket": "submit-3ee0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:101981676505:android:4264910f90cf2f8f75efc8",
+        "android_client_info": {
+          "package_name": "com.example.chaithu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnfFhsRa4sUvGladZnxV7DnSHpzZTHjzo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
