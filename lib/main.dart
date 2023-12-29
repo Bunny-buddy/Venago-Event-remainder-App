@@ -606,6 +606,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     );
   }
 }
+
 class Event {
   final String description;
   final DateTime dateTime;
@@ -633,4 +634,3 @@ class Event {
     );
   }
 }
-
