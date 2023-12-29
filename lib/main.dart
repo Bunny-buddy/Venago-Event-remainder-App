@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: LoginScreen(),
     );
   }
@@ -315,7 +316,8 @@ class _GetEventScreenState extends State<GetEventScreen> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
+      // Allow selecting dates from any time in the past
+      firstDate: DateTime(1900),
       lastDate: DateTime(DateTime.now().year + 5),
     );
 
@@ -323,8 +325,37 @@ class _GetEventScreenState extends State<GetEventScreen> {
       setState(() {
         selectedDate = picked;
       });
+
+      // Check if there are events for the selected date
+      bool eventsFound = widget.eventsList.any((event) =>
+      event.dateTime.year == picked.year &&
+          event.dateTime.month == picked.month &&
+          event.dateTime.day == picked.day);
+
+      if (!eventsFound) {
+        // Show "No Data Found" popup message
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('No Data Found'),
+              content: Text('No events found for the selected date.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      }
     }
   }
+
+
 
   void _editEvent(Event event) {
     print('Edit event: ${event.description}');
