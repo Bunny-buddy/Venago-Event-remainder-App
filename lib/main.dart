@@ -290,19 +290,18 @@ class _GetEventScreenState extends State<GetEventScreen> {
     super.initState();
 
     _databaseReference.onChildAdded.listen((event) {
-      Map<dynamic, dynamic>? eventData =
-      event.snapshot.value as Map<dynamic, dynamic>?;
+      Map<dynamic, dynamic>? eventData = event.snapshot.value as Map<dynamic, dynamic>?;
 
       if (eventData != null) {
         Event newEvent = Event(
           description: eventData['description'],
-          dateTime:
-          DateTime.fromMillisecondsSinceEpoch(eventData['timestamp']),
+          dateTime: DateTime.fromMillisecondsSinceEpoch(eventData['timestamp']),
           createdBy: eventData['createdBy'],
-          eventKey: event.snapshot.key, // Use event.snapshot.key to get the key
+          eventKey: event.snapshot.key,
         );
 
-        if (newEvent.createdBy == widget.currentUserUID) {
+        if (newEvent.createdBy == widget.currentUserUID &&
+            !widget.eventsList.any((event) => event.eventKey == newEvent.eventKey)) {
           setState(() {
             widget.eventsList.add(newEvent);
           });
@@ -310,6 +309,7 @@ class _GetEventScreenState extends State<GetEventScreen> {
       }
     });
   }
+
 
   void _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
